@@ -36,6 +36,12 @@ public class Engine {
     private static String RUNTIME_MODE;
 
     /* check job model (job/task) first */
+
+    /**
+     * 1、创建JobContainer对象
+     * 2、启动JobContainer对象
+     * @param allConf
+     */
     public void start(Configuration allConf) {
 
         // 绑定column转换信息
@@ -49,12 +55,13 @@ public class Engine {
         boolean isJob = !("taskGroup".equalsIgnoreCase(allConf
                 .getString(CoreConstant.DATAX_CORE_CONTAINER_MODEL)));
         //JobContainer会在schedule后再行进行设置和调整值
-        int channelNumber =0;
+        int channelNumber = 0;
         AbstractContainer container;
         long instanceId;
         int taskGroupId = -1;
         if (isJob) {
             allConf.set(CoreConstant.DATAX_CORE_CONTAINER_JOB_MODE, RUNTIME_MODE);
+            // 核心点在于JobContainer的对象
             container = new JobContainer(allConf);
             instanceId = allConf.getLong(
                     CoreConstant.DATAX_CORE_CONTAINER_JOB_ID, 0);
@@ -74,21 +81,22 @@ public class Engine {
         boolean perfReportEnable = allConf.getBool(CoreConstant.DATAX_CORE_REPORT_DATAX_PERFLOG, true);
 
         //standlone模式的datax shell任务不进行汇报
-        if(instanceId == -1){
+        if (instanceId == -1) {
             perfReportEnable = false;
         }
 
         int priority = 0;
         try {
             priority = Integer.parseInt(System.getenv("SKYNET_PRIORITY"));
-        }catch (NumberFormatException e){
-            LOG.warn("prioriy set to 0, because NumberFormatException, the value is: "+System.getProperty("PROIORY"));
+        } catch (NumberFormatException e) {
+            LOG.warn("prioriy set to 0, because NumberFormatException, the value is: " + System.getProperty("PROIORY"));
         }
 
         Configuration jobInfoConfig = allConf.getConfiguration(CoreConstant.DATAX_JOB_JOBINFO);
         //初始化PerfTrace
         PerfTrace perfTrace = PerfTrace.getInstance(isJob, instanceId, taskGroupId, priority, traceEnable);
-        perfTrace.setJobInfo(jobInfoConfig,perfReportEnable,channelNumber);
+        perfTrace.setJobInfo(jobInfoConfig, perfReportEnable, channelNumber);
+        // 核心容器的启动
         container.start();
 
     }
@@ -102,12 +110,12 @@ public class Engine {
 
         filterSensitiveConfiguration(jobContent);
 
-        jobConfWithSetting.set("content",jobContent);
+        jobConfWithSetting.set("content", jobContent);
 
         return jobConfWithSetting.beautify();
     }
 
-    public static Configuration filterSensitiveConfiguration(Configuration configuration){
+    public static Configuration filterSensitiveConfiguration(Configuration configuration) {
         Set<String> keys = configuration.getKeys();
         for (final String key : keys) {
             boolean isSensitive = StringUtils.endsWithIgnoreCase(key, "password")
@@ -127,13 +135,13 @@ public class Engine {
 
         BasicParser parser = new BasicParser();
         CommandLine cl = parser.parse(options, args);
-
+        // 获取job的配置路径信息
         String jobPath = cl.getOptionValue("job");
 
         // 如果用户没有明确指定jobid, 则 datax.py 会指定 jobid 默认值为-1
         String jobIdString = cl.getOptionValue("jobid");
         RUNTIME_MODE = cl.getOptionValue("mode");
-
+        // 解析配置信息
         Configuration configuration = ConfigParser.parse(jobPath);
 
         long jobId;
@@ -167,6 +175,7 @@ public class Engine {
         LOG.debug(configuration.toJSON());
 
         ConfigurationValidate.doValidate(configuration);
+        // 根据配置启动参数
         Engine engine = new Engine();
         engine.start(configuration);
     }
@@ -174,8 +183,8 @@ public class Engine {
 
     /**
      * -1 表示未能解析到 jobId
-     *
-     *  only for dsc & ds & datax 3 update
+     * <p>
+     * only for dsc & ds & datax 3 update
      */
     private static long parseJobIdFromUrl(List<String> patternStringList, String url) {
         long result = -1;
@@ -198,6 +207,12 @@ public class Engine {
         return -1;
     }
 
+    /**
+     * 1、解析job相关配置生成configuration。
+     * 2、依据配置启动Engine。
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         int exitCode = 0;
         try {

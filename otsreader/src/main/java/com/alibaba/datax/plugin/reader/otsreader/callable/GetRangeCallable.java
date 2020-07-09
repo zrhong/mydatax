@@ -1,12 +1,12 @@
 package com.alibaba.datax.plugin.reader.otsreader.callable;
 
-import java.util.concurrent.Callable;
-
 import com.aliyun.openservices.ots.OTSClientAsync;
 import com.aliyun.openservices.ots.model.GetRangeRequest;
 import com.aliyun.openservices.ots.model.GetRangeResult;
 import com.aliyun.openservices.ots.model.OTSFuture;
 import com.aliyun.openservices.ots.model.RangeRowQueryCriteria;
+
+import java.util.concurrent.Callable;
 
 public class GetRangeCallable implements Callable<GetRangeResult> {
     

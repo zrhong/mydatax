@@ -2,11 +2,17 @@ package com.alibaba.datax.plugin.reader.otsstreamreader.internal.utils;
 
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.config.OTSRetryStrategyForStreamReader;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.config.OTSStreamReaderConfig;
+import com.alicloud.openservices.tablestore.ClientConfiguration;
+import com.alicloud.openservices.tablestore.SyncClient;
+import com.alicloud.openservices.tablestore.SyncClientInterface;
+import com.alicloud.openservices.tablestore.TableStoreException;
 import com.alicloud.openservices.tablestore.model.*;
-import com.alicloud.openservices.tablestore.*;
 import com.aliyun.openservices.ots.internal.streamclient.utils.TimeUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class OTSHelper {
 

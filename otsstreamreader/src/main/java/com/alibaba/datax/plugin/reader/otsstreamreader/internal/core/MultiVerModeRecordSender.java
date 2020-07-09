@@ -4,8 +4,8 @@ import com.alibaba.datax.common.element.LongColumn;
 import com.alibaba.datax.common.element.Record;
 import com.alibaba.datax.common.element.StringColumn;
 import com.alibaba.datax.common.plugin.RecordSender;
-import com.alibaba.datax.plugin.reader.otsstreamreader.internal.utils.ColumnValueTransformHelper;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.OTSStreamReaderException;
+import com.alibaba.datax.plugin.reader.otsstreamreader.internal.utils.ColumnValueTransformHelper;
 import com.alicloud.openservices.tablestore.model.*;
 
 /**

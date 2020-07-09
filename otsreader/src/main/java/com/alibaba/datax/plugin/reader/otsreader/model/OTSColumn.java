@@ -1,11 +1,6 @@
 package com.alibaba.datax.plugin.reader.otsreader.model;
 
-import com.alibaba.datax.common.element.BoolColumn;
-import com.alibaba.datax.common.element.BytesColumn;
-import com.alibaba.datax.common.element.Column;
-import com.alibaba.datax.common.element.DoubleColumn;
-import com.alibaba.datax.common.element.LongColumn;
-import com.alibaba.datax.common.element.StringColumn;
+import com.alibaba.datax.common.element.*;
 import com.aliyun.openservices.ots.model.ColumnType;
 
 public class OTSColumn {

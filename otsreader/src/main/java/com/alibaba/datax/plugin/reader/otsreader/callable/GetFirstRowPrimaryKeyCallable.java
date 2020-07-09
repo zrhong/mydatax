@@ -1,20 +1,11 @@
 package com.alibaba.datax.plugin.reader.otsreader.callable;
 
+import com.aliyun.openservices.ots.OTSClient;
+import com.aliyun.openservices.ots.model.*;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
-
-import com.aliyun.openservices.ots.OTSClient;
-import com.aliyun.openservices.ots.model.ColumnType;
-import com.aliyun.openservices.ots.model.ColumnValue;
-import com.aliyun.openservices.ots.model.GetRangeRequest;
-import com.aliyun.openservices.ots.model.GetRangeResult;
-import com.aliyun.openservices.ots.model.PrimaryKeyType;
-import com.aliyun.openservices.ots.model.PrimaryKeyValue;
-import com.aliyun.openservices.ots.model.RangeRowQueryCriteria;
-import com.aliyun.openservices.ots.model.Row;
-import com.aliyun.openservices.ots.model.RowPrimaryKey;
-import com.aliyun.openservices.ots.model.TableMeta;
 
 public class GetFirstRowPrimaryKeyCallable implements Callable<RowPrimaryKey>{
 

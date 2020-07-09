@@ -3,10 +3,6 @@
  */
 package com.alibaba.datax.plugin.writer.gdbwriter.mapping;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.alibaba.datax.common.exception.DataXException;
 import com.alibaba.datax.common.util.Configuration;
 import com.alibaba.datax.plugin.writer.gdbwriter.GdbWriterErrorCode;
@@ -16,8 +12,11 @@ import com.alibaba.datax.plugin.writer.gdbwriter.Key.IdTransRule;
 import com.alibaba.datax.plugin.writer.gdbwriter.Key.ImportType;
 import com.alibaba.datax.plugin.writer.gdbwriter.mapping.MappingRule.PropertyMappingRule;
 import com.alibaba.datax.plugin.writer.gdbwriter.util.ConfigHelper;
-
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author jerrywang

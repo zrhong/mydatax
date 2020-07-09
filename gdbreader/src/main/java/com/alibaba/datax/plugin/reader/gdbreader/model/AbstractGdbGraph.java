@@ -9,11 +9,7 @@ package com.alibaba.datax.plugin.reader.gdbreader.model;
 
 import com.alibaba.datax.common.util.Configuration;
 import com.alibaba.datax.plugin.reader.gdbreader.Key;
-import org.apache.tinkerpop.gremlin.driver.Client;
-import org.apache.tinkerpop.gremlin.driver.Cluster;
-import org.apache.tinkerpop.gremlin.driver.RequestOptions;
-import org.apache.tinkerpop.gremlin.driver.Result;
-import org.apache.tinkerpop.gremlin.driver.ResultSet;
+import org.apache.tinkerpop.gremlin.driver.*;
 import org.apache.tinkerpop.gremlin.driver.ser.Serializers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

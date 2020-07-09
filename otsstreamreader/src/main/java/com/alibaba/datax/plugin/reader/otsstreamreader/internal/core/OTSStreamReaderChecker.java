@@ -1,18 +1,16 @@
 package com.alibaba.datax.plugin.reader.otsstreamreader.internal.core;
 
-import com.alibaba.datax.plugin.reader.otsstreamreader.internal.config.OTSStreamReaderConstants;
-import com.alibaba.datax.plugin.reader.otsstreamreader.internal.config.OTSStreamReaderConfig;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.OTSStreamReaderException;
+import com.alibaba.datax.plugin.reader.otsstreamreader.internal.config.OTSStreamReaderConfig;
+import com.alibaba.datax.plugin.reader.otsstreamreader.internal.config.OTSStreamReaderConstants;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.config.StatusTableConstants;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.model.ShardCheckpoint;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.model.StreamJob;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.utils.OTSHelper;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.utils.TimeUtils;
-import com.alicloud.openservices.tablestore.*;
+import com.alicloud.openservices.tablestore.SyncClientInterface;
 import com.alicloud.openservices.tablestore.model.*;
-import com.aliyun.openservices.ots.internal.streamclient.Worker;
 import com.aliyun.openservices.ots.internal.streamclient.model.CheckpointPosition;
-import com.aliyun.openservices.ots.internal.streamclient.model.WorkerStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

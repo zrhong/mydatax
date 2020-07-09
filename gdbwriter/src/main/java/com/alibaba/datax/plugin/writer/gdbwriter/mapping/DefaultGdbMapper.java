@@ -3,7 +3,15 @@
  */
 package com.alibaba.datax.plugin.writer.gdbwriter.mapping;
 
-import static com.alibaba.datax.plugin.writer.gdbwriter.Key.ImportType.VERTEX;
+import com.alibaba.datax.common.element.Record;
+import com.alibaba.datax.common.util.Configuration;
+import com.alibaba.datax.plugin.writer.gdbwriter.Key;
+import com.alibaba.datax.plugin.writer.gdbwriter.model.GdbEdge;
+import com.alibaba.datax.plugin.writer.gdbwriter.model.GdbElement;
+import com.alibaba.datax.plugin.writer.gdbwriter.model.GdbVertex;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +21,7 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.alibaba.datax.common.element.Record;
-import com.alibaba.datax.common.util.Configuration;
-import com.alibaba.datax.plugin.writer.gdbwriter.Key;
-import com.alibaba.datax.plugin.writer.gdbwriter.model.GdbEdge;
-import com.alibaba.datax.plugin.writer.gdbwriter.model.GdbElement;
-import com.alibaba.datax.plugin.writer.gdbwriter.model.GdbVertex;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
-import lombok.extern.slf4j.Slf4j;
+import static com.alibaba.datax.plugin.writer.gdbwriter.Key.ImportType.VERTEX;
 
 /**
  * @author jerrywang

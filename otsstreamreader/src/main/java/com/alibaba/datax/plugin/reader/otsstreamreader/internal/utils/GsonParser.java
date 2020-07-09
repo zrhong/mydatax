@@ -5,8 +5,6 @@ import com.alicloud.openservices.tablestore.model.StreamShard;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GsonParser {

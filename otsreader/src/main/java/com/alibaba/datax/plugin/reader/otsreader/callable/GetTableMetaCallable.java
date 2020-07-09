@@ -1,11 +1,11 @@
 package com.alibaba.datax.plugin.reader.otsreader.callable;
 
-import java.util.concurrent.Callable;
-
 import com.aliyun.openservices.ots.OTSClient;
 import com.aliyun.openservices.ots.model.DescribeTableRequest;
 import com.aliyun.openservices.ots.model.DescribeTableResult;
 import com.aliyun.openservices.ots.model.TableMeta;
+
+import java.util.concurrent.Callable;
 
 public class GetTableMetaCallable implements Callable<TableMeta>{
 

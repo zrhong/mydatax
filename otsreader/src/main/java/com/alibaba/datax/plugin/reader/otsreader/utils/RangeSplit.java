@@ -1,17 +1,17 @@
 package com.alibaba.datax.plugin.reader.otsreader.utils;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import com.alibaba.datax.plugin.reader.otsreader.model.OTSPrimaryKeyColumn;
 import com.alibaba.datax.plugin.reader.otsreader.model.OTSRange;
 import com.aliyun.openservices.ots.model.PrimaryKeyType;
 import com.aliyun.openservices.ots.model.PrimaryKeyValue;
 import com.aliyun.openservices.ots.model.RowPrimaryKey;
 import com.aliyun.openservices.ots.model.TableMeta;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * 主要提供对范围的解析

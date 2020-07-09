@@ -4,18 +4,12 @@ import com.alibaba.datax.common.element.StringColumn;
 import com.alibaba.datax.common.exception.DataXException;
 import com.alibaba.datax.common.plugin.TaskPluginCollector;
 import com.alibaba.datax.plugin.writer.odpswriter.util.OdpsUtil;
-
-import com.alibaba.fastjson.JSON;
 import com.aliyun.odps.OdpsType;
 import com.aliyun.odps.TableSchema;
-
 import com.aliyun.odps.data.Record;
-
 import com.aliyun.odps.tunnel.TableTunnel;
-
 import com.aliyun.odps.tunnel.TunnelException;
 import com.aliyun.odps.tunnel.io.ProtobufRecordPack;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

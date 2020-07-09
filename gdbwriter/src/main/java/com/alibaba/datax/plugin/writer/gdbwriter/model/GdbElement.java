@@ -3,11 +3,11 @@
  */
 package com.alibaba.datax.plugin.writer.gdbwriter.model;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.alibaba.datax.plugin.writer.gdbwriter.Key.PropertyType;
 import com.alibaba.datax.plugin.writer.gdbwriter.mapping.MapperConfig;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author jerrywang

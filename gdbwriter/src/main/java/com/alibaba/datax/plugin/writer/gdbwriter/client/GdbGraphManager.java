@@ -3,12 +3,12 @@
  */
 package com.alibaba.datax.plugin.writer.gdbwriter.client;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.alibaba.datax.common.util.Configuration;
 import com.alibaba.datax.plugin.writer.gdbwriter.model.GdbGraph;
 import com.alibaba.datax.plugin.writer.gdbwriter.model.ScriptGdbGraph;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author jerrywang

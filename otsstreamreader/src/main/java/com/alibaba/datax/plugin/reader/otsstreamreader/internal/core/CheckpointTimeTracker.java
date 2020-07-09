@@ -3,15 +3,12 @@ package com.alibaba.datax.plugin.reader.otsstreamreader.internal.core;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.config.StatusTableConstants;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.model.ShardCheckpoint;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.model.StreamJob;
-import com.alibaba.datax.plugin.reader.otsstreamreader.internal.utils.GsonParser;
-import com.alicloud.openservices.tablestore.*;
-import com.alicloud.openservices.tablestore.core.protocol.OtsInternalApi;
+import com.alicloud.openservices.tablestore.SyncClientInterface;
 import com.alicloud.openservices.tablestore.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class CheckpointTimeTracker {
 

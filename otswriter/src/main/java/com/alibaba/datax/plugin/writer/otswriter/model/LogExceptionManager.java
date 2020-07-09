@@ -1,10 +1,9 @@
 package com.alibaba.datax.plugin.writer.otswriter.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.aliyun.openservices.ots.OTSErrorCode;
 import com.aliyun.openservices.ots.OTSException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 添加这个类的主要目的是为了解决当用户遇到CU不够时，打印大量的日志

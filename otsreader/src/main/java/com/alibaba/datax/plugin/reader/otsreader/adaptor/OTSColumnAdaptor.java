@@ -1,19 +1,11 @@
 package com.alibaba.datax.plugin.reader.otsreader.adaptor;
 
-import java.lang.reflect.Type;
-
-import org.apache.commons.codec.binary.Base64;
-
 import com.alibaba.datax.plugin.reader.otsreader.model.OTSColumn;
 import com.aliyun.openservices.ots.model.ColumnType;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
+import org.apache.commons.codec.binary.Base64;
+
+import java.lang.reflect.Type;
 
 public class OTSColumnAdaptor implements JsonDeserializer<OTSColumn>, JsonSerializer<OTSColumn>{
     private final static String NAME = "name";

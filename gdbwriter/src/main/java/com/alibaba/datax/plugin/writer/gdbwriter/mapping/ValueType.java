@@ -3,13 +3,12 @@
  */
 package com.alibaba.datax.plugin.writer.gdbwriter.mapping;
 
+import com.alibaba.datax.common.element.Column;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
-import com.alibaba.datax.common.element.Column;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jerrywang

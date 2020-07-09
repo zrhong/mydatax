@@ -1,7 +1,8 @@
 package com.alibaba.datax.plugin.reader.otsstreamreader.internal.config;
 
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.model.OTSErrorCode;
-import com.alicloud.openservices.tablestore.*;
+import com.alicloud.openservices.tablestore.ClientException;
+import com.alicloud.openservices.tablestore.TableStoreException;
 import com.alicloud.openservices.tablestore.model.RetryStrategy;
 
 import java.util.Arrays;

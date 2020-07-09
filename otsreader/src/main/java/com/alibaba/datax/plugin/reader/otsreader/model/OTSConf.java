@@ -1,8 +1,8 @@
 package com.alibaba.datax.plugin.reader.otsreader.model;
 
-import java.util.List;
-
 import com.aliyun.openservices.ots.model.PrimaryKeyValue;
+
+import java.util.List;
 
 public class OTSConf {
     private String endpoint= null;

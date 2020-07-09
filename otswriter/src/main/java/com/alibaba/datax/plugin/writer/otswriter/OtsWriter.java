@@ -1,10 +1,5 @@
 package com.alibaba.datax.plugin.writer.otswriter;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.alibaba.datax.common.exception.DataXException;
 import com.alibaba.datax.common.plugin.RecordReceiver;
 import com.alibaba.datax.common.spi.Writer;
@@ -12,6 +7,10 @@ import com.alibaba.datax.common.util.Configuration;
 import com.alibaba.datax.plugin.writer.otswriter.utils.Common;
 import com.aliyun.openservices.ots.ClientException;
 import com.aliyun.openservices.ots.OTSException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class OtsWriter {
     public static class Job extends Writer.Job {

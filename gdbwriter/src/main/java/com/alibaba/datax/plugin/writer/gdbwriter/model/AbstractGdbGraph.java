@@ -3,24 +3,22 @@
  */
 package com.alibaba.datax.plugin.writer.gdbwriter.model;
 
-import static com.alibaba.datax.plugin.writer.gdbwriter.client.GdbWriterConfig.DEFAULT_BATCH_PROPERTY_NUM;
-import static com.alibaba.datax.plugin.writer.gdbwriter.client.GdbWriterConfig.MAX_REQUEST_LENGTH;
-
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
+import com.alibaba.datax.common.util.Configuration;
+import com.alibaba.datax.plugin.writer.gdbwriter.Key;
+import com.alibaba.datax.plugin.writer.gdbwriter.client.GdbWriterConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tinkerpop.gremlin.driver.Client;
 import org.apache.tinkerpop.gremlin.driver.Cluster;
 import org.apache.tinkerpop.gremlin.driver.RequestOptions;
 import org.apache.tinkerpop.gremlin.driver.ResultSet;
 import org.apache.tinkerpop.gremlin.driver.ser.Serializers;
 
-import com.alibaba.datax.common.util.Configuration;
-import com.alibaba.datax.plugin.writer.gdbwriter.Key;
-import com.alibaba.datax.plugin.writer.gdbwriter.client.GdbWriterConfig;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
-import lombok.extern.slf4j.Slf4j;
+import static com.alibaba.datax.plugin.writer.gdbwriter.client.GdbWriterConfig.DEFAULT_BATCH_PROPERTY_NUM;
+import static com.alibaba.datax.plugin.writer.gdbwriter.client.GdbWriterConfig.MAX_REQUEST_LENGTH;
 
 /**
  * @author jerrywang

@@ -10,7 +10,6 @@ import com.alibaba.datax.common.util.Configuration;
 import com.alibaba.datax.common.util.ListUtil;
 import com.alibaba.datax.plugin.writer.odpswriter.util.IdAndKeyUtil;
 import com.alibaba.datax.plugin.writer.odpswriter.util.OdpsUtil;
-
 import com.aliyun.odps.Odps;
 import com.aliyun.odps.Table;
 import com.aliyun.odps.TableSchema;

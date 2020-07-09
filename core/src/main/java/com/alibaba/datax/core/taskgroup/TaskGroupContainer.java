@@ -89,6 +89,13 @@ public class TaskGroupContainer extends AbstractContainer {
         return taskGroupId;
     }
 
+    /**
+     * TaskGroupContainer的内部主要做的事情如下：
+     *
+     * 1、根据TaskGroupContainer分配的Task任务列表，创建TaskExecutor对象。
+     * 2、创建TaskExecutor对象，用以启动分配该TaskGroup的task。
+     * 3、至此，已经成功的启动了Job当中的Task任务
+     */
     @Override
     public void start() {
         try {
@@ -197,6 +204,7 @@ public class TaskGroupContainer extends AbstractContainer {
                 }
                 
                 //3.有任务未执行，且正在运行的任务数小于最大通道限制
+                // 新增任务会在这里被启动
                 Iterator<Configuration> iterator = taskQueue.iterator();
                 while(iterator.hasNext() && runTasks.size() < channelNumber){
                     Configuration taskConfig = iterator.next();
@@ -224,7 +232,9 @@ public class TaskGroupContainer extends AbstractContainer {
                                     this.taskGroupId, taskId, lastExecutor.getAttemptCount());
                         }
                     }
+                    // todo 需要新建任务的配置信息
                     Configuration taskConfigForRun = taskMaxRetryTimes > 1 ? taskConfig.clone() : taskConfig;
+                    // todo taskExecutor应该就需要新建的任务
                 	TaskExecutor taskExecutor = new TaskExecutor(taskConfigForRun, attemptCount);
                     taskStartTimeMap.put(taskId, System.currentTimeMillis());
                 	taskExecutor.doStart();
@@ -352,6 +362,11 @@ public class TaskGroupContainer extends AbstractContainer {
     /**
      * TaskExecutor是一个完整task的执行器
      * 其中包括1：1的reader和writer
+     * TaskExecutor的启动过程主要做了以下事情：
+     *
+     * 1、创建了reader和writer的线程任务，reader和writer公用一个channel。
+     * 2、先启动writer线程后，再启动reader线程。
+     * 3、至此，同步数据的Task任务已经启动了。
      */
     class TaskExecutor {
         private Configuration taskConfig;

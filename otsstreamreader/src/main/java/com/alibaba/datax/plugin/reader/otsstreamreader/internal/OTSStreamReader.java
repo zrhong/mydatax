@@ -13,7 +13,6 @@ import com.alicloud.openservices.tablestore.model.StreamShard;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.ConcurrentSkipListSet;
 
 public class OTSStreamReader {
 

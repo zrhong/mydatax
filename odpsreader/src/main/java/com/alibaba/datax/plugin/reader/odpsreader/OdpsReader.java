@@ -10,19 +10,13 @@ import com.alibaba.datax.plugin.reader.odpsreader.util.OdpsSplitUtil;
 import com.alibaba.datax.plugin.reader.odpsreader.util.OdpsUtil;
 import com.aliyun.odps.*;
 import com.aliyun.odps.tunnel.TableTunnel.DownloadSession;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class OdpsReader extends Reader {
     public static class Job extends Reader.Job {

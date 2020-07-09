@@ -91,6 +91,12 @@ public class JobContainer extends AbstractContainer {
     /**
      * jobContainer主要负责的工作全部在start()里面，包括init、prepare、split、scheduler、
      * post以及destroy和statistics
+     * 1、执行job的preHandle()操作，暂时不关注。
+     * 2、执行job的init()操作，需重点关注。
+     * 3、执行job的prepare()操作，暂时不关注。
+     * 4、执行job的split()操作，需重点关注。
+     * 5、执行job的schedule()操作，需重点关注。
+     * 6、执行job的post()和postHandle()操作，暂时不关注。
      */
     @Override
     public void start() {
@@ -105,23 +111,36 @@ public class JobContainer extends AbstractContainer {
                 LOG.info("jobContainer starts to do preCheck ...");
                 this.preCheck();
             } else {
+                //拷贝一份新的配置，保证线程安全
                 userConf = configuration.clone();
                 LOG.debug("jobContainer starts to do preHandle ...");
+                // 执行preHandle()操作
                 this.preHandle();
 
+                // 执行reader、transform、writer等初始化
                 LOG.debug("jobContainer starts to do init ...");
                 this.init();
+
+                // 执行plugin的prepare
                 LOG.info("jobContainer starts to do prepare ...");
                 this.prepare();
+
+                // 执行任务切分
                 LOG.info("jobContainer starts to do split ...");
                 this.totalStage = this.split();
+
+                // 执行任务调度
                 LOG.info("jobContainer starts to do schedule ...");
                 this.schedule();
+
+                // 执行后置操作
                 LOG.debug("jobContainer starts to do post ...");
                 this.post();
 
+                // 执行postHandle操作
                 LOG.debug("jobContainer starts to do postHandle ...");
                 this.postHandle();
+
                 LOG.info("DataX jobId [{}] completed successfully.", this.jobId);
 
                 this.invokeHooks();
@@ -283,6 +302,8 @@ public class JobContainer extends AbstractContainer {
 
     /**
      * reader和writer的初始化
+     * 1、创建reader的job对象，通过URLClassLoader实现类加载。
+     * 2、创建writer的job对象，通过URLClassLoader实现类加载。
      */
     private void init() {
         this.jobId = this.configuration.getLong(
@@ -296,7 +317,7 @@ public class JobContainer extends AbstractContainer {
         }
 
         Thread.currentThread().setName("job-" + this.jobId);
-
+        // 初始化
         JobPluginCollector jobPluginCollector = new DefaultJobPluginCollector(
                 this.getContainerCommunicator());
         //必须先Reader ，后Writer
@@ -382,6 +403,12 @@ public class JobContainer extends AbstractContainer {
      * 执行reader和writer最细粒度的切分，需要注意的是，writer的切分结果要参照reader的切分结果，
      * 达到切分后数目相等，才能满足1：1的通道模型，所以这里可以将reader和writer的配置整合到一起，
      * 然后，为避免顺序给读写端带来长尾影响，将整合的结果shuffler掉
+     * DataX的job的split过程主要是根据限流配置计算channel的个数，进而计算task的个数，主要过程如下：
+     *
+     * 1、adjustChannelNumber的过程根据按照字节限流和record限流计算channel的个数。
+     * 2、reader的个数根据channel的个数进行计算。
+     * 3、writer的个数根据reader的个数进行计算，writer和reader实现1:1绑定。
+     * 4、通过mergeReaderAndWriterTaskConfigs()方法生成reader+writer的task的configuration，至此我们生成了task的配置信息。
      */
     private int split() {
         this.adjustChannelNumber();
@@ -460,8 +487,7 @@ public class JobContainer extends AbstractContainer {
         }
 
         // 取较小值
-        this.needChannelNumber = needChannelNumberByByte < needChannelNumberByRecord ?
-                needChannelNumberByByte : needChannelNumberByRecord;
+        this.needChannelNumber = Math.min(needChannelNumberByByte, needChannelNumberByRecord);
 
         // 如果从byte或record上设置了needChannelNumber则退出
         if (this.needChannelNumber < Integer.MAX_VALUE) {
@@ -488,6 +514,8 @@ public class JobContainer extends AbstractContainer {
     /**
      * schedule首先完成的工作是把上一步reader和writer split的结果整合到具体taskGroupContainer中,
      * 同时不同的执行模式调用不同的调度策略，将所有任务调度起来
+     * 1、将task拆分成taskGroup，生成List<Configuration> taskGroupConfigs。
+     * 2、启动taskgroup的对象， scheduler.schedule(taskGroupConfigs)。
      */
     private void schedule() {
         /**
@@ -531,7 +559,7 @@ public class JobContainer extends AbstractContainer {
             LOG.info("Running by {} Mode.", executeMode);
 
             this.startTransferTimeStamp = System.currentTimeMillis();
-
+            // 开始调度所有的taskGroup
             scheduler.schedule(taskGroupConfigs);
 
             this.endTransferTimeStamp = System.currentTimeMillis();
@@ -653,6 +681,7 @@ public class JobContainer extends AbstractContainer {
      */
     private Reader.Job initJobReader(
             JobPluginCollector jobPluginCollector) {
+        // 获取插件名字
         this.readerPluginName = this.configuration.getString(
                 CoreConstant.DATAX_JOB_CONTENT_READER_NAME);
         classLoaderSwapper.setCurrentThreadClassLoader(LoadUtil.getJarLoader(
@@ -670,6 +699,7 @@ public class JobContainer extends AbstractContainer {
                 CoreConstant.DATAX_JOB_CONTENT_WRITER_PARAMETER));
 
         jobReader.setJobPluginCollector(jobPluginCollector);
+        // 这里已经到每个插件具体的初始化操作
         jobReader.init();
 
         classLoaderSwapper.restoreCurrentThreadClassLoader();

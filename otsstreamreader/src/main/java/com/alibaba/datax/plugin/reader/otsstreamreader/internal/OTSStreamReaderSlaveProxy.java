@@ -4,15 +4,19 @@ import com.alibaba.datax.common.exception.DataXException;
 import com.alibaba.datax.common.plugin.RecordSender;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.config.OTSStreamReaderConfig;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.config.OTSStreamReaderConstants;
-import com.alibaba.datax.plugin.reader.otsstreamreader.internal.core.*;
+import com.alibaba.datax.plugin.reader.otsstreamreader.internal.core.CheckpointTimeTracker;
+import com.alibaba.datax.plugin.reader.otsstreamreader.internal.core.OTSStreamReaderChecker;
+import com.alibaba.datax.plugin.reader.otsstreamreader.internal.core.RecordProcessor;
+import com.alibaba.datax.plugin.reader.otsstreamreader.internal.core.ShardStatusChecker;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.model.ShardCheckpoint;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.model.StreamJob;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.utils.OTSHelper;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.utils.TimeUtils;
-import com.alicloud.openservices.tablestore.*;
-import com.alicloud.openservices.tablestore.model.*;
+import com.alicloud.openservices.tablestore.SyncClientInterface;
+import com.alicloud.openservices.tablestore.TableStoreException;
+import com.alicloud.openservices.tablestore.model.StreamDetails;
+import com.alicloud.openservices.tablestore.model.StreamShard;
 import com.aliyun.openservices.ots.internal.streamclient.model.CheckpointPosition;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

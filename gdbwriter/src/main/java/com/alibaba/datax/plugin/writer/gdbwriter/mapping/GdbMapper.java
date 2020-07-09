@@ -3,10 +3,10 @@
  */
 package com.alibaba.datax.plugin.writer.gdbwriter.mapping;
 
-import java.util.function.Function;
-
 import com.alibaba.datax.common.element.Record;
 import com.alibaba.datax.plugin.writer.gdbwriter.model.GdbElement;
+
+import java.util.function.Function;
 
 /**
  * @author jerrywang

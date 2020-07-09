@@ -1,18 +1,14 @@
 package com.alibaba.datax.plugin.writer.otswriter.utils;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import com.alibaba.datax.common.util.Configuration;
 import com.alibaba.datax.plugin.writer.otswriter.model.OTSAttrColumn;
 import com.alibaba.datax.plugin.writer.otswriter.model.OTSErrorMessage;
 import com.alibaba.datax.plugin.writer.otswriter.model.OTSPKColumn;
 import com.aliyun.openservices.ots.model.PrimaryKeyType;
 import com.aliyun.openservices.ots.model.TableMeta;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 public class ParamChecker {
 

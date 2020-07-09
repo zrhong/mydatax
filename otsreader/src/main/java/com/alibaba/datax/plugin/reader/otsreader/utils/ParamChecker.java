@@ -1,17 +1,13 @@
 package com.alibaba.datax.plugin.reader.otsreader.utils;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.alibaba.datax.common.util.Configuration;
 import com.alibaba.datax.plugin.reader.otsreader.model.OTSPrimaryKeyColumn;
 import com.alibaba.datax.plugin.reader.otsreader.model.OTSRange;
-import com.aliyun.openservices.ots.model.Direction;
-import com.aliyun.openservices.ots.model.PrimaryKeyType;
-import com.aliyun.openservices.ots.model.PrimaryKeyValue;
-import com.aliyun.openservices.ots.model.RowPrimaryKey;
-import com.aliyun.openservices.ots.model.TableMeta;
+import com.aliyun.openservices.ots.model.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class ParamChecker {
 

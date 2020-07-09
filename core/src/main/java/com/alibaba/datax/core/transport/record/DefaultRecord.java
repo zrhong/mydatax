@@ -14,6 +14,8 @@ import java.util.Map;
 
 /**
  * Created by jingxing on 14-8-24.
+ * 跟一般的生产者-消费者模式一样，Reader插件和Writer插件之间也是通过channel来实现数据的传输的。channel可以是内存的，也可能是持久化的，插件不必关心。插件通过RecordSender往channel写入数据，通过RecordReceiver从channel读取数据。
+ *  channel中的一条数据为一个Record的对象，Record中可以放多个Column对象，这可以简单理解为数据库中的记录和列。
  */
 
 public class DefaultRecord implements Record {

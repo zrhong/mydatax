@@ -3,11 +3,11 @@
  */
 package com.alibaba.datax.plugin.writer.gdbwriter.client;
 
-import static com.alibaba.datax.plugin.writer.gdbwriter.util.ConfigHelper.assertConfig;
-import static com.alibaba.datax.plugin.writer.gdbwriter.util.ConfigHelper.assertHasContent;
-
 import com.alibaba.datax.common.util.Configuration;
 import com.alibaba.datax.plugin.writer.gdbwriter.Key;
+
+import static com.alibaba.datax.plugin.writer.gdbwriter.util.ConfigHelper.assertConfig;
+import static com.alibaba.datax.plugin.writer.gdbwriter.util.ConfigHelper.assertHasContent;
 
 /**
  * @author jerrywang

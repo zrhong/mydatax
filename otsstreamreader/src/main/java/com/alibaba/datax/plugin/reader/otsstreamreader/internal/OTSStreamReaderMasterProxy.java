@@ -8,8 +8,8 @@ import com.alibaba.datax.plugin.reader.otsstreamreader.internal.core.OTSStreamRe
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.model.StreamJob;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.utils.GsonParser;
 import com.alibaba.datax.plugin.reader.otsstreamreader.internal.utils.OTSHelper;
-import com.alicloud.openservices.tablestore.*;
-import com.alicloud.openservices.tablestore.model.*;
+import com.alicloud.openservices.tablestore.SyncClientInterface;
+import com.alicloud.openservices.tablestore.model.StreamShard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

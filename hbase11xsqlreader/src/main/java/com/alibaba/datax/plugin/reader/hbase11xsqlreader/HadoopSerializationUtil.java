@@ -1,13 +1,9 @@
 package com.alibaba.datax.plugin.reader.hbase11xsqlreader;
 
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 import org.apache.hadoop.io.Writable;
+
+import java.io.*;
 
 public class HadoopSerializationUtil {
 

@@ -3,11 +3,10 @@
  */
 package com.alibaba.datax.plugin.writer.gdbwriter.model;
 
-import java.util.List;
-
 import com.alibaba.datax.common.element.Record;
-
 import groovy.lang.Tuple2;
+
+import java.util.List;
 
 /**
  * @author jerrywang

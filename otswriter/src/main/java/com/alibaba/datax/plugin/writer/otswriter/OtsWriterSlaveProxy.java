@@ -1,7 +1,15 @@
 package com.alibaba.datax.plugin.writer.otswriter;
 
-import com.alibaba.datax.plugin.writer.otswriter.model.*;
+import com.alibaba.datax.common.element.Record;
+import com.alibaba.datax.common.plugin.RecordReceiver;
+import com.alibaba.datax.common.plugin.TaskPluginCollector;
+import com.alibaba.datax.common.util.Configuration;
+import com.alibaba.datax.plugin.writer.otswriter.model.OTSConf;
+import com.alibaba.datax.plugin.writer.otswriter.model.OTSConst;
+import com.alibaba.datax.plugin.writer.otswriter.model.OTSErrorMessage;
+import com.alibaba.datax.plugin.writer.otswriter.model.WithRecord;
 import com.alibaba.datax.plugin.writer.otswriter.utils.Common;
+import com.alibaba.datax.plugin.writer.otswriter.utils.GsonParser;
 import com.aliyun.openservices.ots.*;
 import com.aliyun.openservices.ots.internal.OTSCallback;
 import com.aliyun.openservices.ots.internal.writer.WriterConfig;
@@ -9,12 +17,6 @@ import com.aliyun.openservices.ots.model.*;
 import org.apache.commons.math3.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.alibaba.datax.common.element.Record;
-import com.alibaba.datax.common.plugin.RecordReceiver;
-import com.alibaba.datax.common.plugin.TaskPluginCollector;
-import com.alibaba.datax.common.util.Configuration;
-import com.alibaba.datax.plugin.writer.otswriter.utils.GsonParser;
 
 import java.util.List;
 import java.util.concurrent.Executors;

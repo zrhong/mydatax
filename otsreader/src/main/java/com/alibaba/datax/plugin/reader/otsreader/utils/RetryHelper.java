@@ -1,15 +1,14 @@
 package com.alibaba.datax.plugin.reader.otsreader.utils;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.Callable;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.aliyun.openservices.ots.ClientException;
 import com.aliyun.openservices.ots.OTSErrorCode;
 import com.aliyun.openservices.ots.OTSException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 public class RetryHelper {
     

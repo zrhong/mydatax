@@ -33,6 +33,14 @@ public abstract class AbstractScheduler {
         this.containerCommunicator = containerCommunicator;
     }
 
+    /**
+     * TaskGroup的Schedule方法做的事情如下：
+     *
+     * 1、为所有的TaskGroup创建TaskGroupContainerRunner。
+     * 2、通过线程池提交TaskGroupContainerRunner任务，执行TaskGroupContainerRunner的run()方法。
+     * 3、在run()方法内部执行this.taskGroupContainer.start()方法。
+     * @param configurations
+     */
     public void schedule(List<Configuration> configurations) {
         Validate.notNull(configurations,
                 "scheduler配置不能为空");
@@ -52,6 +60,7 @@ public abstract class AbstractScheduler {
         this.containerCommunicator.registerCommunication(configurations);
 
         int totalTasks = calculateTaskCount(configurations);
+        // 启动所有的TaskGroup
         startAllTaskGroup(configurations);
 
         Communication lastJobContainerCommunication = new Communication();

@@ -4,7 +4,6 @@
 package com.alibaba.datax.plugin.writer.gdbwriter.model;
 
 import com.alibaba.datax.plugin.writer.gdbwriter.mapping.MapperConfig;
-
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

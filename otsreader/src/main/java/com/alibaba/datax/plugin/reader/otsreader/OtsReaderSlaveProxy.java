@@ -1,10 +1,5 @@
 package com.alibaba.datax.plugin.reader.otsreader;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.alibaba.datax.common.element.Record;
 import com.alibaba.datax.common.plugin.RecordSender;
 import com.alibaba.datax.common.util.Configuration;
@@ -14,18 +9,16 @@ import com.alibaba.datax.plugin.reader.otsreader.model.OTSConf;
 import com.alibaba.datax.plugin.reader.otsreader.model.OTSConst;
 import com.alibaba.datax.plugin.reader.otsreader.model.OTSRange;
 import com.alibaba.datax.plugin.reader.otsreader.utils.Common;
-import com.alibaba.datax.plugin.reader.otsreader.utils.GsonParser;
 import com.alibaba.datax.plugin.reader.otsreader.utils.DefaultNoRetry;
+import com.alibaba.datax.plugin.reader.otsreader.utils.GsonParser;
 import com.alibaba.datax.plugin.reader.otsreader.utils.RetryHelper;
 import com.aliyun.openservices.ots.OTSClientAsync;
 import com.aliyun.openservices.ots.OTSServiceConfiguration;
-import com.aliyun.openservices.ots.model.Direction;
-import com.aliyun.openservices.ots.model.GetRangeRequest;
-import com.aliyun.openservices.ots.model.GetRangeResult;
-import com.aliyun.openservices.ots.model.OTSFuture;
-import com.aliyun.openservices.ots.model.RangeRowQueryCriteria;
-import com.aliyun.openservices.ots.model.Row;
-import com.aliyun.openservices.ots.model.RowPrimaryKey;
+import com.aliyun.openservices.ots.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class OtsReaderSlaveProxy {
     
