@@ -25,6 +25,7 @@ public abstract class Channel {
 
     protected int capacity;
 
+    // 数据的字节数容量
     protected int byteCapacity;
 
     protected long byteSpeed; // bps: bytes/s
@@ -37,8 +38,10 @@ public abstract class Channel {
 
     protected Configuration configuration = null;
 
+    // 等待Reader处理完的时间，也就是pull的时间
     protected volatile long waitReaderTime = 0;
 
+    // 等待Writer处理完的时间，也就是push的时间，继承自Channel
     protected volatile long waitWriterTime = 0;
 
     private static Boolean isFirstPrint = true;
@@ -117,9 +120,15 @@ public abstract class Channel {
         this.lastCommunication.reset();
     }
 
+    /**
+     * reader使用
+     * @param r
+     */
     public void push(final Record r) {
         Validate.notNull(r, "record不能为空.");
+        // 子类实现doPush方法
         this.doPush(r);
+        // statPush会进行限速
         this.statPush(1L, r.getByteSize());
     }
 
@@ -139,15 +148,24 @@ public abstract class Channel {
         this.statPush(rs.size(), this.getByteSize(rs));
     }
 
+    /**
+     * writer使用
+     * @return
+     */
     public Record pull() {
+        // 子类实现doPull方法，返回数据
+        //并没有限速。因为数据的整个流程是Reader ->Channel ->Writer， Reader的push速度限制了，Writer的pull速度也就没必要限速
         Record record = this.doPull();
+        // 调用statPull方法，更新统计数据
         this.statPull(1L, record.getByteSize());
         return record;
     }
 
     public void pullAll(final Collection<Record> rs) {
         Validate.notNull(rs);
+        // 子类实现doPullAll方法，返回数据
         this.doPullAll(rs);
+        // 调用statPull方法，更新统计数据
         this.statPull(rs.size(), this.getByteSize(rs));
     }
 
@@ -173,7 +191,13 @@ public abstract class Channel {
         return size;
     }
 
+    /**
+     * statPush里面会对速度进行控制。它通过Communication记录总的写入数据大小和数据条数。然后每隔一段时间，检查速度。如果速度过快，就会sleep一段时间，来把速度降下来
+     * @param recordSize
+     * @param byteSize
+     */
     private void statPush(long recordSize, long byteSize) {
+        // currentCommunication实时记录了Reader读取的总数据字节数和条数
         currentCommunication.increaseCounter(CommunicationTool.READ_SUCCEED_RECORDS,
                 recordSize);
         currentCommunication.increaseCounter(CommunicationTool.READ_SUCCEED_BYTES,
@@ -182,24 +206,27 @@ public abstract class Channel {
 
         currentCommunication.setLongCounter(CommunicationTool.WAIT_READER_TIME, waitReaderTime);
         currentCommunication.setLongCounter(CommunicationTool.WAIT_WRITER_TIME, waitWriterTime);
-
+        // 判断是否会限速
         boolean isChannelByteSpeedLimit = (this.byteSpeed > 0);
         boolean isChannelRecordSpeedLimit = (this.recordSpeed > 0);
         if (!isChannelByteSpeedLimit && !isChannelRecordSpeedLimit) {
             return;
         }
-
+        // lastCommunication记录最后一次的时间
         long lastTimestamp = lastCommunication.getTimestamp();
         long nowTimestamp = System.currentTimeMillis();
         long interval = nowTimestamp - lastTimestamp;
+        // 每隔flowControlInterval一段时间，就会检查是否超速
         if (interval - this.flowControlInterval >= 0) {
             long byteLimitSleepTime = 0;
             long recordLimitSleepTime = 0;
             if (isChannelByteSpeedLimit) {
+                // 计算速度，(现在的字节数 - 上一次的字节数) / 过去的时间
                 long currentByteSpeed = (CommunicationTool.getTotalReadBytes(currentCommunication) -
                         CommunicationTool.getTotalReadBytes(lastCommunication)) * 1000 / interval;
                 if (currentByteSpeed > this.byteSpeed) {
                     // 计算根据byteLimit得到的休眠时间
+                    // 这段时间传输的字节数 / 期望的限定速度 - 这段时间
                     byteLimitSleepTime = currentByteSpeed * interval / this.byteSpeed
                             - interval;
                 }
@@ -216,8 +243,7 @@ public abstract class Channel {
             }
 
             // 休眠时间取较大值
-            long sleepTime = byteLimitSleepTime < recordLimitSleepTime ?
-                    recordLimitSleepTime : byteLimitSleepTime;
+            long sleepTime = Math.max(byteLimitSleepTime, recordLimitSleepTime);
             if (sleepTime > 0) {
                 try {
                     Thread.sleep(sleepTime);
@@ -225,15 +251,19 @@ public abstract class Channel {
                     Thread.currentThread().interrupt();
                 }
             }
-
+            // 保存读取字节数
             lastCommunication.setLongCounter(CommunicationTool.READ_SUCCEED_BYTES,
                     currentCommunication.getLongCounter(CommunicationTool.READ_SUCCEED_BYTES));
+            // 保存读取失败的字节数
             lastCommunication.setLongCounter(CommunicationTool.READ_FAILED_BYTES,
                     currentCommunication.getLongCounter(CommunicationTool.READ_FAILED_BYTES));
+            // 保存读取条数
             lastCommunication.setLongCounter(CommunicationTool.READ_SUCCEED_RECORDS,
                     currentCommunication.getLongCounter(CommunicationTool.READ_SUCCEED_RECORDS));
+            // 保存读取失败的条数
             lastCommunication.setLongCounter(CommunicationTool.READ_FAILED_RECORDS,
                     currentCommunication.getLongCounter(CommunicationTool.READ_FAILED_RECORDS));
+            // 记录保存的时间点
             lastCommunication.setTimestamp(nowTimestamp);
         }
     }
